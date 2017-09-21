@@ -1,5 +1,7 @@
 # koa-cors-gate
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/ladjs/koa-cors-gate.svg)](https://greenkeeper.io/)
+
 [![build status](https://img.shields.io/travis/ladjs/koa-cors-gate.svg)](https://travis-ci.org/ladjs/koa-cors-gate)
 [![code coverage](https://img.shields.io/codecov/c/github/ladjs/koa-cors-gate.svg)](https://codecov.io/gh/ladjs/koa-cors-gate)
 [![code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
