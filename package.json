@@ -1,6 +1,5 @@
 {
   "name": "koa-cors-gate",
-  
   "description": "my majestic project",
   "version": "0.0.1",
   "author": "Alexis Tyler <xo@wvvw.me> (https://wvvw.me/)",
@@ -8,8 +7,9 @@
     "url": "https://github.com/ladjs/koa-cors-gate/issues",
     "email": "xo@wvvw.me"
   },
-  "contributors": ["Alexis Tyler <xo@wvvw.me> (https://wvvw.me/)"],
-  "dependencies": {},
+  "contributors": [
+    "Alexis Tyler <xo@wvvw.me> (https://wvvw.me/)"
+  ],
   "ava": {
     "failFast": true,
     "verbose": true
@@ -19,29 +19,41 @@
     "ava": "^0.22.0",
     "codecov": "^2.3.0",
     "cross-env": "^5.0.5",
+    "debug": "^3.0.1",
     "eslint": "^4.5.0",
     "eslint-config-prettier": "^2.3.0",
     "eslint-plugin-prettier": "^2.2.0",
     "husky": "^0.14.3",
+    "kcors": "^2.2.1",
+    "koa": "^2.3.0",
+    "koa-compose": "^4.0.0",
+    "koa-router": "^7.2.1",
     "lint-staged": "^4.0.4",
     "nyc": "^11.1.0",
     "prettier": "^1.6.1",
     "remark-cli": "^4.0.0",
     "remark-preset-github": "^0.0.6",
+    "supertest": "^3.0.0",
     "xo": "^0.19.0"
   },
   "engines": {
     "node": ">=8.3"
   },
   "homepage": "https://github.com/ladjs/koa-cors-gate",
-  "keywords": ["koa-cors-gate", "lass"],
+  "keywords": [
+    "koa-cors-gate",
+    "lass"
+  ],
   "license": "MIT",
   "lint-staged": {
     "*.{js,jsx,mjs,ts,tsx,css,less,scss,json,graphql}": [
       "prettier --write --single-quote --trailing-comma none",
       "git add"
     ],
-    "*.md": ["remark . -qfo", "git add"]
+    "*.md": [
+      "remark . -qfo",
+      "git add"
+    ]
   },
   "main": "index.js",
   "nyc": {
@@ -49,10 +61,16 @@
     "lines": 100,
     "functions": 100,
     "branches": 100,
-    "reporter": ["lcov", "html", "text"]
+    "reporter": [
+      "lcov",
+      "html",
+      "text"
+    ]
   },
   "remarkConfig": {
-    "plugins": ["preset-github"]
+    "plugins": [
+      "preset-github"
+    ]
   },
   "repository": {
     "type": "git",
@@ -62,12 +80,14 @@
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "lint": "xo && remark . -qfo",
     "precommit": "lint-staged && npm test",
-    "test": "npm run lint && npm run test-coverage",
+    "test": "npm run lint && npm run test-coverage && ava",
     "test-coverage": "cross-env NODE_ENV=test nyc ava"
   },
   "xo": {
     "extends": "prettier",
-    "plugins": ["prettier"],
+    "plugins": [
+      "prettier"
+    ],
     "parserOptions": {
       "sourceType": "script"
     },
@@ -92,5 +112,8 @@
       "no-warning-comments": "off"
     },
     "space": true
+  },
+  "dependencies": {
+    "koa-mount": "^3.0.0"
   }
 }

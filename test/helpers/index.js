@@ -1,10 +1,24 @@
+const Koa = require('koa');
+const Router = require('koa-router');
 const Script = require('../../');
+const koaRequest = require('./koa-request');
 
-function beforeEach(t) {
-  const script = new Script({});
-  Object.assign(t.context, { script });
-}
+const beforeEach = t => {
+  const app = new Koa();
+  const router = new Router();
+  Object.assign(t.context, { app, router });
+};
 
-function afterEach() {}
+const afterEach = () => {};
 
-module.exports = { beforeEach, afterEach };
+const ok = (ctx, next) => {
+  ctx.status = 200;
+  return next();
+};
+
+module.exports = {
+  beforeEach,
+  afterEach,
+  koaRequest,
+  ok
+};
