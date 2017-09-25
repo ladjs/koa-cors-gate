@@ -1,6 +1,5 @@
 const Koa = require('koa');
 const Router = require('koa-router');
-const Script = require('../../');
 const koaRequest = require('./koa-request');
 
 const beforeEach = t => {

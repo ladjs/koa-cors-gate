@@ -1,7 +1,8 @@
+const url = require('url');
 const autoBind = require('auto-bind');
 const Debug = require('debug');
 
-const debug = Debug('koa-cors-gate');
+const debug = new Debug('koa-cors-gate');
 
 /**
  * If the Origin header is missing, fill it with the origin part of the Referer.
@@ -38,7 +39,7 @@ const originFallbackToReferrer = () => {
     debug('originFallbackToReferrer');
     return next();
   };
-}
+};
 
 /**
  * Gate requests based on CORS data. For requests that are not permitted via CORS, invoke the
@@ -53,10 +54,13 @@ const originFallbackToReferrer = () => {
  */
 class Script {
   constructor(options = {}) {
-    options = Object.assign({
-      strict: true,
-      allowSafe: true
-    }, options);
+    options = Object.assign(
+      {
+        strict: true,
+        allowSafe: true
+      },
+      options
+    );
 
     if (options.failure) {
       debug('failure passed in options');
@@ -66,7 +70,10 @@ class Script {
 
     this.options = options;
 
-    if (!(options.originFallbackToReferrer) && typeof this.options.origin !== 'string') {
+    if (
+      !options.originFallbackToReferrer &&
+      typeof this.options.origin !== 'string'
+    ) {
       throw new TypeError(`Must specify the server's origin.`);
     }
 
@@ -122,7 +129,7 @@ class Script {
     failure(ctx, next);
   }
 
-  async failure(ctx, next) {
+  async failure(ctx) {
     debug('failure');
     ctx.status = 403;
   }
