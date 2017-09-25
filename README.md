@@ -30,12 +30,17 @@ yarn add koa-cors-gate
 ## Usage
 
 ```js
-const KoaCorsGate = require('koa-cors-gate');
+const Koa = require('koa');
+const CorsGate = require('koa-cors-gate');
 
-const koaCorsGate = new KoaCorsGate();
+const app = new Koa();
 
-console.log(koaCorsGate.renderName());
-// script
+app.use(
+  new CorsGate({
+    allowSafe: false,
+    origin: 'http://localhost'
+  }).middleware
+);
 ```
 
 
