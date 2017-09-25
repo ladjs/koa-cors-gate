@@ -58,7 +58,10 @@ test('should allow permitted cross-origin requests', async t => {
   app.use(
     cors({
       origin: 'http://localhost:8080'
-    }),
+    })
+  );
+
+  app.use(
     new CorsGate({
       allowSafe: false,
       origin: 'http://localhost'
@@ -80,7 +83,10 @@ test('should allow wildcard origins', async t => {
   app.use(
     cors({
       origin: '*'
-    }),
+    })
+  );
+
+  app.use(
     new CorsGate({
       allowSafe: false,
       origin: 'http://localhost'
@@ -120,7 +126,10 @@ test('should reject requests from other origins', async t => {
   app.use(
     cors({
       origin: 'http://localhost:8080'
-    }),
+    })
+  );
+
+  app.use(
     new CorsGate({
       allowSafe: false,
       origin: 'http://localhost'
@@ -133,7 +142,7 @@ test('should reject requests from other origins', async t => {
     .post('/post')
     .set('origin', 'https://mixmax.com');
 
-  t.is(200, res.status);
+  t.is(403, res.status);
 });
 
 test('should allow unspecified safe requests', async t => {
@@ -230,13 +239,16 @@ test('should be invoked for requests without origin', async t => {
   t.is(204, res.status);
 });
 
-test.only('should be invoked for requests from other origins', async t => {
+test('should be invoked for requests from other origins', async t => {
   const { app } = t.context;
 
   app.use(
     cors({
       origin: 'http://localhost:8080'
-    }),
+    })
+  );
+
+  app.use(
     new CorsGate({
       origin: 'http://localhost',
       failure(ctx) {
@@ -259,11 +271,13 @@ test('should patch origin', async t => {
 
   app.use(CorsGate.originFallbackToReferrer());
 
-  app.use(_.get('/get', ctx => {
-    const correctOrigin = ctx.req.headers.origin === 'http://localhost';
+  app.use(
+    _.get('/get', ctx => {
+      const correctOrigin = ctx.req.headers.origin === 'http://localhost';
 
-    ctx.status = correctOrigin ? 200 : 403;
-  }));
+      ctx.status = correctOrigin ? 200 : 403;
+    })
+  );
 
   const res = await koaRequest(app)
     .get('/get')
@@ -277,11 +291,13 @@ test('should not overwrite origin', async t => {
 
   app.use(CorsGate.originFallbackToReferrer());
 
-  app.use(_.get('/get', ctx => {
-    const correctOrigin = ctx.req.headers.origin === 'http://localhost';
+  app.use(
+    _.get('/get', ctx => {
+      const correctOrigin = ctx.req.headers.origin === 'http://localhost';
 
-    ctx.status = correctOrigin ? 200 : 403;
-  }));
+      ctx.status = correctOrigin ? 200 : 403;
+    })
+  );
 
   // This scenario won't technically occur in the wild
   // - the referer and origin should always match.
