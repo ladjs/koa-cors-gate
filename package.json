@@ -103,7 +103,8 @@
         "error",
         {
           "code": 80,
-          "ignoreUrls": true
+          "ignoreUrls": true,
+          "ignoreComments": true
         }
       ],
       "capitalized-comments": "off",
