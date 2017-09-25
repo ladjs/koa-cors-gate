@@ -23,10 +23,13 @@ const debug = new Debug('koa-cors-gate');
  * to perform all the described tasks.
  */
 const originFallbackToReferrer = () => {
+  debug('using originFallbackToReferrer');
   return async ({ req }, next) => {
     const origin = req.headers.origin;
+    debug('origin: %s', origin);
     if (!origin) {
       const ref = req.headers.referer;
+      debug('ref: %s', ref);
       if (ref) {
         const parts = url.parse(ref);
         const { protocol, host } = parts;
@@ -36,7 +39,6 @@ const originFallbackToReferrer = () => {
         });
       }
     }
-    debug('originFallbackToReferrer');
     return next();
   };
 };
@@ -84,12 +86,13 @@ class Script {
     const { req, res } = ctx;
     const { options, failure } = this;
 
-    if (options.originFallbackToReferrer) {
-      return originFallbackToReferrer(ctx, next);
-    }
+    debug('starting middleware');
 
     const thisOrigin = options.origin.toLowerCase();
     const origin = (req.headers.origin || '').toLowerCase().trim();
+
+    debug('options: %O', options);
+    debug('origin: %s', origin);
 
     if (!origin) {
       debug('origin missing');
@@ -126,7 +129,7 @@ class Script {
     }
 
     // CSRF! Abort.
-    failure(ctx, next);
+    return failure(ctx, next);
   }
 
   async failure(ctx) {
@@ -136,3 +139,4 @@ class Script {
 }
 
 module.exports = Script;
+module.exports.originFallbackToReferrer = originFallbackToReferrer;

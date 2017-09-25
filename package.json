@@ -27,7 +27,6 @@
     "kcors": "^2.2.1",
     "koa": "^2.3.0",
     "koa-compose": "^4.0.0",
-    "koa-router": "^7.2.1",
     "lint-staged": "^4.0.4",
     "nyc": "^11.1.0",
     "prettier": "^1.6.1",
@@ -114,6 +113,7 @@
     "space": true
   },
   "dependencies": {
-    "koa-mount": "^3.0.0"
+    "koa-mount": "^3.0.0",
+    "koa-route": "^3.2.0"
   }
 }
