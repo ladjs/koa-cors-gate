@@ -14,6 +14,12 @@ test('returns itself', t => {
   t.true(corsGate instanceof CorsGate);
 });
 
+test('requires origin paramameter', t => {
+  const error = t.throws(() => {
+    new CorsGate();
+  }, TypeError);
+});
+
 test('should allow same-origin requests', async t => {
   const { app } = t.context;
 
