@@ -15,8 +15,8 @@ test('returns itself', t => {
 });
 
 test('requires origin paramameter', t => {
-  const error = t.throws(() => {
-    new CorsGate();
+  t.throws(() => {
+    new CorsGate(); // eslint-disable-line no-new
   }, TypeError);
 });
 
